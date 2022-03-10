@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="fsm_visual_behavior" type="nodo_filter" name="filter" output="screen">
+        <rosparam command="load" file="$(find fsm_visual_behavior)/config/filter.yaml"/>    
+    </node>
+
+</launch>
