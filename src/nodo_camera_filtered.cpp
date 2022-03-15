@@ -1,4 +1,4 @@
-// Copyright 2022 Team Atlas
+// Copyright 2019 Intelligent Robotics Lab
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -11,7 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 
 
 #include <ros/ros.h>
@@ -31,58 +30,28 @@ typedef struct
 }
 HSVInfo;
 
-class Filter
+class ImageConverter
 {
   ros::NodeHandle nh_;
   image_transport::ImageTransport it_;
   image_transport::Subscriber image_sub_;
   image_transport::Publisher image_pub_;
-  int hupper_, hlower_;
-  int supper_, slower_;
-  int vupper_, vlower_;
-  int channel_;
+  int hupper_ = 27;
+  int hlower_ = 6;
+  int supper_ = 255;
+  int slower_ = 0;
+  int vupper_ = 255;
+  int vlower_ = 0;
+  int channel_ = 0;
 
   static const int MAX_CHANNELS = 3;
   HSVInfo hsvValues_[MAX_CHANNELS];
 
 public:
-
-  Filter(): it_(nh_)
+  ImageConverter(): it_(nh_)
   {
-    
-    
-    nh_.getParam("Hue_Upper", hupper_);
-    nh_.getParam("Sat_Upper", supper_);
-    nh_.getParam("Val_Upper", vupper_);
-    nh_.getParam("Hue_Lower", hlower_);
-    nh_.getParam("Sat_Lower", slower_);
-    nh_.getParam("Val_Lower", vlower_);
-
-    ROS_INFO("%i", hupper_);
-
-    image_sub_ = it_.subscribe("/camera/rgb/image_raw", 1, &Filter::imageCb, this);
+    image_sub_ = it_.subscribe("/camera/rgb/image_raw", 1, &ImageConverter::imageCb, this);
     image_pub_ = it_.advertise("/hsv/image_filtered", 1);
-
-    cv::namedWindow("Imagen Fuente");
-    cv::namedWindow("Imagen filtrada");
-
-
-
-    // TrackBar
-    /*cv::createTrackbar("Hue Upper", "Imagen filtrada", &hupper_, 360, NULL);
-    cv::createTrackbar("Hue Lower", "Imagen filtrada", &hlower_, 360, NULL);
-    cv::createTrackbar("Sat Upper", "Imagen filtrada", &supper_, 255, NULL);
-    cv::createTrackbar("Sat Lower", "Imagen filtrada", &slower_, 255, NULL);
-    cv::createTrackbar("Val Upper", "Imagen filtrada", &vupper_, 255, NULL);
-    cv::createTrackbar("Val Lower", "Imagen filtrada", &vlower_, 255, NULL);
-    cv::createTrackbar("Channel", "Imagen filtrada", &channel_, MAX_CHANNELS-1, NULL);
-    cv::setTrackbarPos("Hue Upper", "Imagen filtrada", 360);
-    cv::setTrackbarPos("Hue Lower", "Imagen filtrada", 0);
-    cv::setTrackbarPos("Sat Upper", "Imagen filtrada", 255);
-    cv::setTrackbarPos("Sat Lower", "Imagen filtrada", 0);
-    cv::setTrackbarPos("Val Upper", "Imagen filtrada", 255);
-    cv::setTrackbarPos("Val Lower", "Imagen filtrada", 0);
-    cv::setTrackbarPos("Channel", "Imagen filtrada", 0); */
 
     for (int i=0; i < MAX_CHANNELS; i++)
       initChannel(&hsvValues_[i], i);
@@ -90,7 +59,7 @@ public:
     publishHSV();
   }
 
-  ~Filter()
+  ~ImageConverter()
   {
     // cv::destroyWindow("Imagen Fuente");
     // cv::destroyWindow("Imagen filtrada");
@@ -128,7 +97,6 @@ public:
     bool changed = (hsvValues_[channel_].hsv[IDX_h] != hlower_) || (hsvValues_[channel_].hsv[IDX_H] != hupper_) ||
         (hsvValues_[channel_].hsv[IDX_s] != slower_) || (hsvValues_[channel_].hsv[IDX_S] != supper_) ||
         (hsvValues_[channel_].hsv[IDX_v] != vlower_) || (hsvValues_[channel_].hsv[IDX_V] != vupper_);
-
 
     hsvValues_[channel_].hsv[IDX_h] = hlower_;
     hsvValues_[channel_].hsv[IDX_H] = hupper_;
@@ -216,7 +184,7 @@ public:
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "hsv_tuner_2d");
-  Filter ic;
+  ImageConverter ic;
   ros::spin();
   return 0;
 }
