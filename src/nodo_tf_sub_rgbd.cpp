@@ -36,7 +36,11 @@ int main(int argc, char **argv)
   tf2_ros::TransformListener listener(buffer);//el listener vale tanto como para tf2 como para static tf2
 
   ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity", 100);
-  ros::Rate loop_rate(1);
+  ros::Rate loop_rate(20);
+
+  geometry_msgs::Twist vel_msgs;
+  br2_tracking::PIDController velocity_pid(0.0, 5.0, 0.0, 0.2);
+  br2_tracking::PIDController turn_pid(0.0, 5.0, 0.0, 0.5);
 
   while (ros::ok())
   {
@@ -64,11 +68,17 @@ int main(int argc, char **argv)
         angle,
         (ros::Time::now() - bf2ball.stamp_).toSec());
 
-      geometry_msgs::Twist vel_msgs;
+      
       double speed_filered = std::clamp(dist -1, -5.0, 5.0);
-      br2_tracking::PIDController velocity_pid(0.0, 5.0, 0.0, 0.5);
-      vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
-      vel_msgs.angular.z = angle;
+      double angle_filered = std::clamp(angle, -5.0, 5.0);
+      if( (ros::Time::now() - bf2ball.stamp_).toSec() > 1.0f){
+        vel_msgs.angular.z = 0.5;
+      }
+      else{
+        vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
+        vel_msgs.angular.z = turn_pid.get_output(angle_filered);
+      }
+    
       vel_pub.publish(vel_msgs);
 
     }
