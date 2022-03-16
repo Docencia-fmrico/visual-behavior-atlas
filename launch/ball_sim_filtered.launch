@@ -3,5 +3,7 @@
 	<node pkg="fsm_visual_behavior" type="nodo_camera_filtered" name="filter_camera" output="screen"></node>
 	<node pkg="cameras_cpp" type="nodo_rgbd_filter" name="publish_filter" output="screen"></node>
 	<node pkg="cameras_cpp" type="nodo_rgbd_tf" name="public_tf_filter" output="screen"></node>
-	
+	<node name="rviz" pkg="rviz" type="rviz" args="-d $(find fsm_visual_behavior)/config/rviz_config.rviz" required="true"></node>
+	<node pkg="fsm_visual_behavior" type="nodo_tf_sub_rgbd" name="tf_sub_rgbd" output="screen"></node>
+
 </launch>
