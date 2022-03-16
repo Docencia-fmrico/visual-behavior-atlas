@@ -44,8 +44,8 @@ link_directories(
 
 add_library(fsm_visual_behavior 
   src/fsm_visual_behavior/PIDController.cpp
-  /home/adrian/Escritorio/catking_ws/src/software_arq_robots_course/geometry_tf/src/geometry_tf/transforms.cpp
-)
+  /home/elisa/catkin_ws/src/software_arq_robots_course/geometry_tf/src/geometry_tf
+  )
 
 set(LINK_LIBS
   fsm_visual_behavior

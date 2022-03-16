@@ -66,7 +66,7 @@ int main(int argc, char **argv)
 
       geometry_msgs::Twist vel_msgs;
       double speed_filered = std::clamp(dist -1, -5.0, 5.0);
-      br2_tracking::PIDController velocity_pid(0.0, 5.0, 0.0, 0.5);
+      br2_tracking::PIDController velocity_pid(0.0, 5.0, 0.0, 0.3);
       vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
       vel_msgs.angular.z = angle;
       vel_pub.publish(vel_msgs);
