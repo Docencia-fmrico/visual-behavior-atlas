@@ -1,0 +1,4 @@
+<launch>
+	<node pkg="darknet_ros" type="darknet_ros" name="darknet" output="screen"></node>
+
+</launch>
