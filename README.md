@@ -17,12 +17,24 @@ La práctica se compone de tres partes:
 
 ## Follow Ball
 
-
-
-
+ El nodo para la pelota consiste en dos acciones principales, detectar la pelota e ir hacia ella.
+ Para realizarlo hemos seguido los siguentes pasos:
+ 
+ **1.** Filtrado la pelota con hsv.
+ 
+ **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
 
 
 
 ## Follow Person
+v
+
+ El nodo para la pelota consiste en dos acciones principales, detectar la pelota e ir hacia ella.
+ Para realizarlo hemos seguido los siguentes pasos:
+ 
+ **1.** Filtrado la pelota con hsv.
+ 
+ **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
 
 
+ ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Person.PNG)
