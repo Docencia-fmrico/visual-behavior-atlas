@@ -79,8 +79,10 @@ set(ROSLINT_CPP_OPTS "--filter=-runtime/printf")
 
 roslint_cpp(
   src/nodo_filter.cpp
+  
   src/behaviorTreePerson.cpp
   include/fsm_visual_behavior/Person/FollowPerson.h src/fsm_visual_behavior/Person/FollowPerson.cpp
   include/fsm_visual_behavior/Person/PersonNotFound.h src/fsm_visual_behavior/PersonNotFound.cpp
   include/fsm_visual_behavior/Person/SearchPerson.h src/fsm_visual_behavior/Person/SearchPerson.cpp
+
 )

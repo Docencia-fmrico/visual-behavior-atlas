@@ -1,0 +1,7 @@
+<root main_tree_to_execute = "MainTree" >
+    <BehaviorTree ID="MainTree">
+        <ReactiveSequence>
+            <FollowPerson   name="follow person"/>
+        </ReactiveSequence>
+    </BehaviorTree>
+</root>
