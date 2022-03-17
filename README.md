@@ -39,3 +39,5 @@ La práctica se compone de tres partes:
 
 
  ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Person.PNG)
+ 
+ -[BT Follow Person Video](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.mp4)
