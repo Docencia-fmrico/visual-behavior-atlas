@@ -12,30 +12,35 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef PERSON_FOLLOWPERSON_H
-#define PERSON_FOLLOWPERSON_H
+#include <string>
+
+#include "fsm_visual_person/SearchPerson.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
-#include <string>
+#include "ros/ros.h"
 
-namespace behavior_trees_person
+namespace behavior_trees
 {
 
-class FollowPerson : public BT::ActionNodeBase
+SearchPerson::SearchPerson(const std::string& name)
+: BT::ActionNodeBase(name, {}), counter_(0)
 {
-  public:
-    FollowPerson(const std::string& name);
+}
 
-    void halt();
+void
+SearchPerson::halt()
+{
+  ROS_INFO("SearchPerson halt");
+}
 
-    BT::NodeStatus tick();
+BT::NodeStatus
+SearchPerson::tick()
+{
+  ROS_INFO("SearchPerson tick");
 
-  private:
-    int counter_;
-};
+  return BT::NodeStatus::SUCCESS;
+}
 
-}  // namespace behavior_trees_person
-
-#endif  // PERSON_FOLLOWPERSON_H
+}  // namespace behavior_trees

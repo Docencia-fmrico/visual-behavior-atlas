@@ -12,21 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef PERSON_PERSONNOTFOUND_H
-#define PERSON_PERSONNOTFOUND_H
+#ifndef FSM_VISUAL_PERSON_SEARCHPERSON_H
+#define FSM_VISUAL_PERSON_SEARCHPERSON_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include <string>
 
-namespace behavior_trees_person
+namespace behavior_trees
 {
 
-class PersonNotFound : public BT::ActionNodeBase
+class SearchPerson : public BT::ActionNodeBase
 {
   public:
-    explicit PersonNotFound(const std::string& name);
+    explicit SearchPerson(const std::string& name);
 
     void halt();
 
@@ -36,6 +36,6 @@ class PersonNotFound : public BT::ActionNodeBase
     int counter_;
 };
 
-}  // namespace behavior_trees_person
+}  // namespace behavior_trees
 
-#endif  // PERSON_PERSONNOTFOUND_H
+#endif  // FSM_VISUAL_PERSON_SEARCHPERSON_H

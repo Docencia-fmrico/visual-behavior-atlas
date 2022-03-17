@@ -14,14 +14,14 @@
 
 #include <string>
 
-#include "fsm_visual_behavior/Person/PersonNotFound.h"
+#include "fsm_visual_person/PersonNotFound.h"
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
 #include "ros/ros.h"
 
-namespace behavior_trees_person
+namespace behavior_trees
 {
 
 PersonNotFound::PersonNotFound(const std::string& name)
@@ -43,4 +43,4 @@ PersonNotFound::tick()
   return BT::NodeStatus::SUCCESS;
 }
 
-}  // namespace behavior_trees_person
+}  // namespace behavior_trees

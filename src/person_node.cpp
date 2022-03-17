@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include "fsm_visual_behavior/Person/FollowPerson.h"
-#include "fsm_visual_behavior/Person/PersonNotFound.h"
-#include "fsm_visual_behavior/Person/SearchPerson.h"
+#include "fsm_visual_person/FollowPerson.h"
+#include "fsm_visual_person/PersonNotFound.h"
+#include "fsm_visual_person/SearchPerson.h"
 
 #include "ros/ros.h"
 #include "behaviortree_cpp_v3/behavior_tree.h"
@@ -29,16 +29,16 @@ int main(int argc, char **argv)
 
   BT::BehaviorTreeFactory factory;
 
-  factory.registerNodeType<behavior_trees_person::FollowPerson>("Followerson");
-  factory.registerNodeType<behavior_trees_person::PersonNotFound>("PersoNotFound");
-  factory.registerNodeType<behavior_trees_person::SearchPerson>("SearchPerson");
+  factory.registerNodeType<behavior_trees::FollowPerson>("FollowPerson");
+  factory.registerNodeType<behavior_trees::PersonNotFound>("PersonNotFound");
+  factory.registerNodeType<behavior_trees::SearchPerson>("SearchPerson");
 
   auto blackboard = BT::Blackboard::create();
 
   blackboard->set("object", "cup");
 
-  std::string pkgpath = ros::package::getPath("visual-behavior-atlas");
-  std::string xml_file = pkgpath + "/behavior_tree_visual/tree_1.xml";
+  std::string pkgpath = ros::package::getPath("fsm_visual_person");
+  std::string xml_file = pkgpath + "/behavior_tree/tree.xml";
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
 
