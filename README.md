@@ -1,5 +1,8 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7213008&assignment_repo_type=AssignmentRepo)
-# visual-behaviors
+# Visual-behaviors Team Atlas
+
+
+## Objetivo de la práctica
 
 La práctica se compone de tres partes:
 
@@ -11,4 +14,15 @@ La práctica se compone de tres partes:
 2. Seguimiento visual de una persona: Similar al punto anterior, pero detectando a la persona con darket_ros.
 3. Comportamiento mixto: El robot debe seguir tanto a las personas como a las pelotas que perciba con la cámara, teniendo prioridad la pelota.
 
-Entrega: Viernes 11 de Marzo.
+
+## Follow Ball
+
+
+
+
+
+
+
+## Follow Person
+
+
