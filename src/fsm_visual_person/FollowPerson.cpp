@@ -40,7 +40,7 @@ FollowPerson::tick()
 {
   ROS_INFO("FollowPerson tick");
 
-  return BT::NodeStatus::SUCCESS;
+  return BT::NodeStatus::RUNNING;
 }
 
 }  // namespace behavior_trees

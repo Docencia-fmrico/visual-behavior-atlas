@@ -12,30 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef FSM_VISUAL_PERSON_PERSONNOTFOUND_H
-#define FSM_VISUAL_PERSON_PERSONNOTFOUND_H
+#ifndef FSM_VISUAL_PERSON_PERSONFOUND_H
+#define FSM_VISUAL_PERSON_PERSONFOUND_H
 
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+
+#include "ros/ros.h"
+#include "darknet_ros_msgs/BoundingBoxes.h"
 
 #include <string>
 
 namespace behavior_trees
 {
 
-class PersonNotFound : public BT::ActionNodeBase
+class PersonFound : public BT::ActionNodeBase
 {
   public:
-    explicit PersonNotFound(const std::string& name);
+    explicit PersonFound(const std::string& name);
 
     void halt();
+
+    void boxesCallback(const darknet_ros_msgs::BoundingBoxes::ConstPtr& msg);
 
     BT::NodeStatus tick();
 
   private:
     int counter_;
+    int coordX_;
+    int coordY_;
+    bool found_ = false;
+    ros::NodeHandle n_;
+    ros::Subscriber sub_boxes_;
 };
 
 }  // namespace behavior_trees
 
-#endif  // FSM_VISUAL_PERSON_PERSONNOTFOUND_H
+#endif  // FSM_VISUAL_PERSON_PERSONFOUND_H

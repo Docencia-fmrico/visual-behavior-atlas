@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #include "fsm_visual_person/FollowPerson.h"
-#include "fsm_visual_person/PersonNotFound.h"
+#include "fsm_visual_person/PersonFound.h"
 #include "fsm_visual_person/SearchPerson.h"
 
 #include "ros/ros.h"
@@ -30,7 +30,7 @@ int main(int argc, char **argv)
   BT::BehaviorTreeFactory factory;
 
   factory.registerNodeType<behavior_trees::FollowPerson>("FollowPerson");
-  factory.registerNodeType<behavior_trees::PersonNotFound>("PersonNotFound");
+  factory.registerNodeType<behavior_trees::PersonFound>("PersonFound");
   factory.registerNodeType<behavior_trees::SearchPerson>("SearchPerson");
 
   auto blackboard = BT::Blackboard::create();
@@ -42,7 +42,7 @@ int main(int argc, char **argv)
 
   BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);
 
-  ros::Rate loop_rate(5);
+  ros::Rate loop_rate(0.5);
 
   int count = 0;
 

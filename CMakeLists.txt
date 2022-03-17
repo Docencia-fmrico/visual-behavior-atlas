@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   roslint
   sensor_msgs
   std_msgs
+  darknet_ros_msgs
   behaviortree_cpp_v3
 )
 
@@ -17,6 +18,7 @@ CATKIN_DEPENDS
   roscpp
   sensor_msgs
   std_msgs
+  darknet_ros_msgs
   behaviortree_cpp_v3
 )
 
@@ -33,7 +35,7 @@ set(LINK_LIBS
 add_executable(nodo_behavior_person
   src/person_node.cpp
   src/fsm_visual_person/FollowPerson.cpp
-  src/fsm_visual_person/PersonNotFound.cpp
+  src/fsm_visual_person/PersonFound.cpp
   src/fsm_visual_person/SearchPerson.cpp
 )
 
@@ -44,6 +46,6 @@ set(ROSLINT_CPP_OPTS "--filter=-runtime/printf")
 roslint_cpp(
   src/person_node.cpp
   include/fsm_visual_person/FollowPerson.h src/fsm_visual_person/FollowPerson.cpp
-  include/fsm_visual_person/PersonNotFound.h src/fsm_visual_person/PersonNotFound.cpp
+  include/fsm_visual_person/PersonFound.h src/fsm_visual_person/PersonFound.cpp
   include/fsm_visual_person/SearchPerson.h src/fsm_visual_person/SearchPerson.cpp
 )

@@ -21,12 +21,16 @@
 
 #include "ros/ros.h"
 
+#include "geometry_msgs/Twist.h"
+
 namespace behavior_trees
 {
 
 SearchPerson::SearchPerson(const std::string& name)
 : BT::ActionNodeBase(name, {}), counter_(0)
 {
+  pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
+  cmd_.angular.z = 0.4;
 }
 
 void
@@ -39,6 +43,8 @@ BT::NodeStatus
 SearchPerson::tick()
 {
   ROS_INFO("SearchPerson tick");
+  
+  pub_vel_.publish(cmd_);
 
   return BT::NodeStatus::SUCCESS;
 }

@@ -15,10 +15,14 @@
 #ifndef FSM_VISUAL_PERSON_SEARCHPERSON_H
 #define FSM_VISUAL_PERSON_SEARCHPERSON_H
 
+#include <string>
+
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
 
-#include <string>
+#include "geometry_msgs/Twist.h"
+
+#include "ros/ros.h"
 
 namespace behavior_trees
 {
@@ -34,6 +38,9 @@ class SearchPerson : public BT::ActionNodeBase
 
   private:
     int counter_;
+    ros::NodeHandle n_;
+    ros::Publisher pub_vel_;
+    geometry_msgs::Twist cmd_;
 };
 
 }  // namespace behavior_trees

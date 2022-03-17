@@ -1,8 +1,11 @@
 <root main_tree_to_execute="MainTree">
     <BehaviorTree ID="MainTree">
-        <Sequence>
+        <ReactiveSequence>
+            <Fallback>
+                <PersonFound name="PersonFound"/>
+                <SearchPerson name="SearchPerson"/>
+            </Fallback>
             <FollowPerson name="FollowPerson"/>
-            <SearchPerson name="SearchPerson"/>
-        </Sequence>
+        </ReactiveSequence>
     </BehaviorTree>
 </root>
