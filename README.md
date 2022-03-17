@@ -24,17 +24,16 @@ La práctica se compone de tres partes:
  
  **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
 
-
+ ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.jpeg)
 
 ## Follow Person
-v
 
- El nodo para la pelota consiste en dos acciones principales, detectar la pelota e ir hacia ella.
+ El nodo para la pelota consiste en dos acciones principales, detectar la persona e ir hacia ella.
  Para realizarlo hemos seguido los siguentes pasos:
  
- **1.** Filtrado la pelota con hsv.
+ **1.** Utilizar el bounding box y filtrar que solo se quede con el id persona.
  
- **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
+ **2.** Obtenemos la distancia de la persona con el mensaje del bounding box .
 
 
  ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Person.PNG)
