@@ -26,6 +26,8 @@ La práctica se compone de tres partes:
 
  ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.jpeg)
 
+ -[BT Follow Person Video](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.mp4)
+
 ## Follow Person
 
  El nodo para la pelota consiste en dos acciones principales, detectar la persona e ir hacia ella.
