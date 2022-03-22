@@ -13,6 +13,7 @@
 
   <buildtool_depend>catkin</buildtool_depend>
  
+  <build_depend>kobuki_msgs</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>sensor_msgs</build_depend>
@@ -22,9 +23,16 @@
   <build_depend>cv_bridge</build_depend>
   <build_depend>pcl_conversions</build_depend>
   <build_depend>geometry_tf</build_depend>
-
+  <build_depend>behaviortree_cpp_v3</build_depend>
   <build_depend>roslint</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>tf2</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>roslint</build_depend>
+  <build_depend>tf2_geometry_msgs</build_depend>z
+  <build_depend>message_generation</build_depend>
 
+  <build_export_depend>kobuki_msgs</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>sensor_msgs</build_export_depend>
@@ -34,7 +42,13 @@
   <build_export_depend>cv_bridge</build_export_depend>
   <build_export_depend>pcl_conversions</build_export_depend>
   <build_export_depend>geometry_tf</build_export_depend>
+  <build_export_depend>behaviortree_cpp_v3</build_export_depend>
+  <build_export_depend>tf2</build_export_depend>
+  <build_export_depend>tf2_ros</build_export_depend>
+  <build_export_depend>tf2_geometry_msgs</build_export_depend>
+  <build_export_depend>geometry_msgs</build_export_depend>
 
+  <exec_depend>kobuki_msgs</exec_depend>
   <exec_depend>roscpp</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
@@ -44,6 +58,14 @@
   <exec_depend>cv_bridge</exec_depend>
   <exec_depend>pcl_conversions</exec_depend>
   <exec_depend>geometry_tf</exec_depend>
+  <exec_depend>behaviortree_cpp_v3</exec_depend>
+  <exec_depend>roscpp</exec_depend>
+  <exec_depend>tf2</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>tf2_geometry_msgs</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  
   <export>
   </export>
 </package>

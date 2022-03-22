@@ -36,10 +36,10 @@ class ImageConverter
   image_transport::ImageTransport it_;
   image_transport::Subscriber image_sub_;
   image_transport::Publisher image_pub_;
-  int hupper_ = 27;
-  int hlower_ = 6;
-  int supper_ = 255;
-  int slower_ = 0;
+  int hupper_ = 84;
+  int hlower_ = 18;
+  int supper_ = 149;
+  int slower_ = 66;
   int vupper_ = 255;
   int vlower_ = 0;
   int channel_ = 0;

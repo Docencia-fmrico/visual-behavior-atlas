@@ -14,12 +14,28 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_conversions
   pcl_ros
   geometry_tf
+  behaviortree_cpp_v3
+  OpenCV
+  tf2_geometry_msgs
+  tf2
+  tf2_ros
+  geometry_msgs
+  message_generation
 )
 
-find_package(OpenCV)
-include_directories(${OpenCV_INCLUDE_DIRS})
+add_message_files(
+  FILES 
+  bbx_info.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
 
 catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES geometry_tf
 CATKIN_DEPENDS   
   roscpp
   sensor_msgs
@@ -30,12 +46,19 @@ CATKIN_DEPENDS
   pcl_conversions
   pcl_ros
   geometry_tf
+  behaviortree_cpp_v3
+  geometry_msgs
+  tf2_geometry_msgs
+  tf2
+  tf2_ros
+  message_runtime
 )
 
 include_directories(
+  include
   ${catkin_INCLUDE_DIRS}
   ${PCL_INCLUDE_DIRS}
-  include
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -54,8 +77,23 @@ set(LINK_LIBS
 
 add_definitions(${PCL_DEFINITIONS})
 
+add_executable(nodo_ball_behavior_tree 
+  src/nodo_ball_behavior_tree.cpp
+  src/fsm_visual_behavior/Ball_Detected.cpp
+  src/fsm_visual_behavior/Turn.cpp
+  src/fsm_visual_behavior/Follow_Ball.cpp
+  src/fsm_visual_behavior/Person_Detected.cpp
+  src/fsm_visual_behavior/Follow_Person.cpp
+)
+target_link_libraries(nodo_ball_behavior_tree ${catkin_LIBRARIES})
+add_dependencies(nodo_ball_behavior_tree fsm_visual_behavior_generate_messages_cpp)
+
 add_executable(nodo_camera_filtered src/nodo_camera_filtered.cpp)
 target_link_libraries(nodo_camera_filtered ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+
+add_executable(nodo_bbx_msg_publisher src/nodo_bbx_msg_publisher)
+target_link_libraries(nodo_bbx_msg_publisher ${catkin_LIBRARIES} ${OpenCV_LIBRARIES})
+add_dependencies(nodo_bbx_msg_publisher fsm_visual_behavior_generate_messages_cpp)
 
 add_executable(nodo_tf_sub_rgbd 
 	src/nodo_tf_sub_rgbd.cpp
