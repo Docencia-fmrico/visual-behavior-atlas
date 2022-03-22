@@ -29,6 +29,7 @@
 #include "tf2/convert.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_tf/transforms.h"
+#include "PIDController.hpp"
 
 namespace fsm_visual_behavior
 {
@@ -48,6 +49,8 @@ class Follow_Ball : public BT::ActionNodeBase
     tf2_ros::Buffer buffer;
     tf2_ros::TransformListener listener;
     ros::Publisher pub_vel_;
+    br2_tracking::PIDController velocity_pid;
+    br2_tracking::PIDController turn_pid;
 };
 
 }  // namespace fsm_visual_behavior

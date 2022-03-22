@@ -84,6 +84,7 @@ add_executable(nodo_ball_behavior_tree
   src/fsm_visual_behavior/Follow_Ball.cpp
   src/fsm_visual_behavior/Person_Detected.cpp
   src/fsm_visual_behavior/Follow_Person.cpp
+  src/fsm_visual_behavior/PIDController.cpp
 )
 target_link_libraries(nodo_ball_behavior_tree ${catkin_LIBRARIES})
 add_dependencies(nodo_ball_behavior_tree fsm_visual_behavior_generate_messages_cpp)
