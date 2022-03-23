@@ -1,0 +1,7 @@
+<launch>
+	<param name="xml_path_pkg" value="/behavior_trees_xml/follow_person.xml"/>
+
+	<include file="$(find darknet_ros)/launch/darknet_ros.launch"></include>
+	<node pkg="fsm_visual_behavior" type="nodo_bbx_msg_publisher" name="nodo_bbx_msg_publisher" output="screen"></node>
+	<node pkg="fsm_visual_behavior" type="nodo_ball_behavior_tree" name="nodo_ball_behavior_tree" output="screen"></node>
+</launch>

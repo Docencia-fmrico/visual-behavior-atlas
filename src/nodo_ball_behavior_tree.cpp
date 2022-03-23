@@ -45,11 +45,12 @@ int main(int argc, char **argv)
   auto blackboard = BT::Blackboard::create();//creo la blackboard
 
   blackboard->set("object", "cup");
-
   std::string pkgpath = ros::package::getPath("fsm_visual_behavior");//buscas el behavior tree creado con xml
-  std::string xml_file = pkgpath + "/behavior_trees_xml/follow_person.xml";
+  std::string xml_path_pkg;
+  n.getParam("xml_path_pkg", xml_path_pkg);
+  std::string xml_path = pkgpath + xml_path_pkg;
 
-  BT::Tree tree = factory.createTreeFromFile(xml_file, blackboard);//creas el arbol
+  BT::Tree tree = factory.createTreeFromFile(xml_path, blackboard);//creas el arbol
   auto publisher_zmq = std::make_shared<BT::PublisherZMQ>(tree, 10, 1666, 1667);
 
   ros::Rate loop_rate(20);

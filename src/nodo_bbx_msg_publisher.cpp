@@ -29,7 +29,7 @@ public:
 void callback_bbx(const sensor_msgs::ImageConstPtr& image, const darknet_ros_msgs::BoundingBoxesConstPtr& boxes, bbx_info mensajero)
   {
     cv_bridge::CvImagePtr img_ptr_depth;
-
+    std::string str_person ("person");
     try{
         img_ptr_depth = cv_bridge::toCvCopy(*image, sensor_msgs::image_encodings::TYPE_32FC1);
     }
@@ -39,13 +39,15 @@ void callback_bbx(const sensor_msgs::ImageConstPtr& image, const darknet_ros_msg
       return;
     }
     for (const auto & box : boxes->bounding_boxes) {
-      mensajero.px = (box.xmax + box.xmin) / 2;
-      mensajero.py = (box.ymax + box.ymin) / 2;
+      if(str_person.compare(box.Class) == 0){
+        mensajero.px = (box.xmax + box.xmin) / 2;
+        mensajero.py = (box.ymax + box.ymin) / 2;
 
-      mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py)*1.0f);//* 0.001f
-      std::cerr << box.Class << " at (" << mensajero.dist <<"px: "<< mensajero.px << "py: "<< mensajero.py << std::endl;
+        mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py)*1.0f);//* 0.001f
+        std::cerr << box.Class << " at (" << mensajero.dist <<"px: "<< mensajero.px << "py: "<< mensajero.py << std::endl;
+        mensajero.publicar();
+      }
     }
-    mensajero.publicar();
   }
 
 int main(int argc, char** argv)

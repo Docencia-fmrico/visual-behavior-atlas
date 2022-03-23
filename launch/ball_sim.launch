@@ -1,5 +1,0 @@
-<launch>
-	<node pkg="cameras_cpp" type="nodo_camera" name="filter_camera" output="screen"></node>
-	<node pkg="cameras_cpp" type="nodo_rgbd_filter" name="publish_filter" output="screen"></node>
-	<node pkg="cameras_cpp" type="nodo_rgbd_tf" name="public_tf_filter" output="screen"></node>
-</launch>

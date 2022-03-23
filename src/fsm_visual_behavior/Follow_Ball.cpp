@@ -29,7 +29,7 @@ namespace fsm_visual_behavior
 {
 
 Follow_Ball::Follow_Ball(const std::string& name)
-: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.2), turn_pid(0.0, 5.0, 0.0, 0.5)
+: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.5), turn_pid(0.0, 5.0, 0.0, 0.1)
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
