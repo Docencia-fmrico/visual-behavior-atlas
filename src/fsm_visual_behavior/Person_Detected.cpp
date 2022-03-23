@@ -22,13 +22,11 @@ namespace fsm_visual_behavior
 Person_Detected::Person_Detected(const std::string& name)
 : BT::ConditionNode(name,{}), n_()
 {
-  n_.subscribe("bbx_custom_topic", 1, &fsm_visual_behavior::Person_Detected::messageCallback, this);
+  sub_ = n_.subscribe("bbx_custom_topic", 1, &fsm_visual_behavior::Person_Detected::messageCallback, this);
 }
 void
 Person_Detected::messageCallback(const fsm_visual_behavior::bbx_info::ConstPtr& msg){
   dist = msg->dist;
-  ROS_INFO("%f hola",dist);
-  
 }
 
 BT::NodeStatus

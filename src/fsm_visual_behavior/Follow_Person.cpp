@@ -29,9 +29,17 @@ namespace fsm_visual_behavior
 {
 
 Follow_Person::Follow_Person(const std::string& name)
-: BT::ActionNodeBase(name, {})
+: BT::ActionNodeBase(name, {}), velocity_pid(0.0, 5.0, 0.0, 0.2), turn_pid(0.0, 320, 0.0, 0.5)
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
+  sub_ = n_.subscribe("bbx_custom_topic", 1, &fsm_visual_behavior::Follow_Person::messageCallback, this);
+}
+
+void
+Follow_Person::messageCallback(const fsm_visual_behavior::bbx_info::ConstPtr& msg){
+  dist = msg->dist;
+  px = msg->px;
+  
 }
 
 void
@@ -44,8 +52,13 @@ BT::NodeStatus
 Follow_Person::tick()
 {
   geometry_msgs::Twist vel_msgs;
+  double speed_filered = std::clamp(dist -1, -0.5, 0.5);
+
+  double angle_filered = (px-320)*(-1.0);
+
+  vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
+  vel_msgs.angular.z = turn_pid.get_output(angle_filered);
       
-  vel_msgs.linear.x = 0.0;
   pub_vel_.publish(vel_msgs);
   
   return BT::NodeStatus::RUNNING;

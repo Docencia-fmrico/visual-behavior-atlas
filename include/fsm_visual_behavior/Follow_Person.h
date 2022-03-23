@@ -29,6 +29,8 @@
 #include "tf2/convert.h"
 #include "geometry_msgs/Twist.h"
 #include "geometry_tf/transforms.h"
+#include "PIDController.hpp"
+#include "fsm_visual_behavior/bbx_info.h"
 
 namespace fsm_visual_behavior
 {
@@ -37,15 +39,19 @@ class Follow_Person : public BT::ActionNodeBase
 {
   public:
     ros::NodeHandle n_;
+    double dist;
+    int px;
     explicit Follow_Person(const std::string& name);
-
+    void messageCallback(const fsm_visual_behavior::bbx_info::ConstPtr& msg);
     void halt();
-
     BT::NodeStatus tick();
 
   private:
     static constexpr float GOING_FORWARD_VEL = 0.3;
     ros::Publisher pub_vel_;
+    ros::Subscriber sub_;
+    br2_tracking::PIDController velocity_pid;
+    br2_tracking::PIDController turn_pid;
 };
 
 }  // namespace fsm_visual_behavior
