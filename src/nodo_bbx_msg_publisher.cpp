@@ -43,7 +43,7 @@ void callback_bbx(const sensor_msgs::ImageConstPtr& image, const darknet_ros_msg
         mensajero.px = (box.xmax + box.xmin) / 2;
         mensajero.py = (box.ymax + box.ymin) / 2;
 
-        mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py)*1.0f);//* 0.001f
+        mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py)*0.001f);//* 0.001f
         std::cerr << box.Class << " at (" << mensajero.dist <<"px: "<< mensajero.px << "py: "<< mensajero.py << std::endl;
         mensajero.publicar();
       }
@@ -57,7 +57,7 @@ int main(int argc, char** argv)
   bbx_info mensajero;
   ros::Rate loop_rate(20);
 
-  message_filters::Subscriber<sensor_msgs::Image> image_depth_sub(mensajero.nh, "/camera/depth/image_raw", 1);
+  message_filters::Subscriber<sensor_msgs::Image> image_depth_sub(mensajero.nh, "/camera/depth_registered/image_raw", 1);
   message_filters::Subscriber<darknet_ros_msgs::BoundingBoxes> bbx_sub(mensajero.nh, "/darknet_ros/bounding_boxes", 1);
 
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, darknet_ros_msgs::BoundingBoxes> MySyncPolicy_bbx;

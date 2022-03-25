@@ -29,7 +29,7 @@ namespace fsm_visual_behavior
 {
 
 Follow_Ball::Follow_Ball(const std::string& name)
-: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.5), turn_pid(0.0, 5.0, 0.0, 0.1)
+: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.5), turn_pid(0.0, 5.0, 0.0, 0.5)
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
@@ -64,8 +64,8 @@ Follow_Ball::tick()
     (ros::Time::now() - bf2ball.stamp_).toSec());
 
       
-  double speed_filered = std::clamp(dist -1, -0.5, 0.5);
-  double angle_filered = std::clamp(angle, -0.5, 0.5);
+  double speed_filered = std::clamp(dist -1, -5.0, 5.0);
+  double angle_filered = std::clamp(angle, -1.0, 1.0);
 
   vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
   vel_msgs.angular.z = turn_pid.get_output(angle_filered);
