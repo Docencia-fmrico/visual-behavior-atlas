@@ -29,7 +29,7 @@ namespace fsm_visual_behavior
 {
 
 Follow_Ball::Follow_Ball(const std::string& name)
-: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.5), turn_pid(0.0, 5.0, 0.0, 0.5)
+: BT::ActionNodeBase(name, {}), n_(), buffer(), listener(buffer), velocity_pid(0.0, 5.0, 0.0, 0.20), turn_pid(0.0, 3.0, 0.0, 0.5)
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
@@ -64,12 +64,26 @@ Follow_Ball::tick()
     (ros::Time::now() - bf2ball.stamp_).toSec());
 
       
-  double speed_filered = std::clamp(dist -1, -5.0, 5.0);
-  double angle_filered = std::clamp(angle, -1.0, 1.0);
+  double speed_clamped = std::clamp(dist -1, -5.0, 5.0);
+  double angle_clamped = std::clamp(angle, -1.0, 1.0)*10;
 
-  vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
-  vel_msgs.angular.z = turn_pid.get_output(angle_filered);
-  
+  float speed_pid = velocity_pid.get_output(speed_clamped)*1.0f;
+  float angle_pid = turn_pid.get_output(angle_clamped)*1.0f;
+
+  if(speed_pid < 0){
+    speed_pid = speed_pid*100;
+    if(speed_pid < -0.2){
+      speed_pid = -0.2;
+      vel_msgs.linear.x = speed_pid;
+    }
+  }else if( angle_pid > 0.08 || angle_pid < -0.08)
+  {
+    vel_msgs.angular.z = angle_pid;
+  }else{
+    vel_msgs.linear.x = speed_pid;
+  }
+  ROS_INFO("angle_pid = %f angle clamped = %lf",angle_pid, angle_clamped);
+  ROS_INFO("spid_pid = %f",speed_pid);
   pub_vel_.publish(vel_msgs);
   return BT::NodeStatus::RUNNING;
 }

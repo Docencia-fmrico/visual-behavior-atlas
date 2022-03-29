@@ -27,7 +27,7 @@ Ball_Detected::tick()
 {
   geometry_msgs::TransformStamped bf2ball_msg;
   tf2::Stamped<tf2::Transform> bf2ball;
-  if(buffer.canTransform("base_footprint", "object/0", ros::Time(0), ros::Duration(4.0), &error))
+  if(buffer.canTransform("base_footprint", "object/0", ros::Time(0), ros::Duration(1.0), &error))
   {
     bf2ball_msg = buffer.lookupTransform("base_footprint", "object/0", ros::Time(0));
     tf2::fromMsg(bf2ball_msg, bf2ball);

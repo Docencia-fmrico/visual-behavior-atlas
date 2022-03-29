@@ -28,7 +28,7 @@ namespace fsm_visual_behavior
 {
 
 Turn::Turn(const std::string& name)
-: BT::ActionNodeBase(name, {})
+: BT::ActionNodeBase(name, {}), n_()
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
 }
@@ -42,10 +42,10 @@ Turn::halt()
 BT::NodeStatus
 Turn::tick()
 {
+  ROS_INFO("turning");
   std::string error;
   geometry_msgs::Twist cmd;
-  ros::Time start_turn_time = ros::Time::now();
-  cmd.angular.z = 0.5;
+  cmd.angular.z = 0.5f;
   pub_vel_.publish(cmd);
   return BT::NodeStatus::RUNNING;
   
