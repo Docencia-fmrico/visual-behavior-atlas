@@ -21,6 +21,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf2_ros
   geometry_msgs
   message_generation
+  std_msgs
 )
 
 add_message_files(

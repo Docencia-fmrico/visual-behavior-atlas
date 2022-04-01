@@ -26,20 +26,23 @@ Person_Detected::Person_Detected(const std::string& name)
 }
 void
 Person_Detected::messageCallback(const fsm_visual_behavior::bbx_info::ConstPtr& msg){
+  last_lecture = msg->header.stamp;
   dist = msg->dist;
 }
 
 BT::NodeStatus
 Person_Detected::tick()
 {
-  if (!std::isnan(dist))
+  if ( (ros::Time::now() - last_lecture).toSec() > 1.0 || std::isnan(dist))
   {
-    ROS_INFO("%f hola",dist);
-    return BT::NodeStatus::SUCCESS;
+    ROS_INFO("time since las msg %f",(ros::Time::now() - last_lecture).toSec());
+    ROS_INFO("ros time %f",ros::Time::now().toSec());
+    ROS_INFO("msg time %f",last_lecture.toSec());
+    return BT::NodeStatus::FAILURE;
   }
   else  
   {
-    return BT::NodeStatus::FAILURE;
+    return BT::NodeStatus::SUCCESS;
   }
 }
 

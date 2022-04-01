@@ -70,18 +70,9 @@ Follow_Ball::tick()
   float speed_pid = velocity_pid.get_output(speed_clamped)*1.0f;
   float angle_pid = turn_pid.get_output(angle_clamped)*1.0f;
 
-  if(speed_pid < 0){
-    speed_pid = speed_pid*100;
-    if(speed_pid < -0.2){
-      speed_pid = -0.2;
-      vel_msgs.linear.x = speed_pid;
-    }
-  }else if( angle_pid > 0.08 || angle_pid < -0.08)
-  {
-    vel_msgs.angular.z = angle_pid;
-  }else{
-    vel_msgs.linear.x = speed_pid;
-  }
+  vel_msgs.angular.z = angle_pid;
+  vel_msgs.linear.x = speed_pid;
+
   ROS_INFO("angle_pid = %f angle clamped = %lf",angle_pid, angle_clamped);
   ROS_INFO("spid_pid = %f",speed_pid);
   pub_vel_.publish(vel_msgs);

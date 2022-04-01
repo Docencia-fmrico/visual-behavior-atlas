@@ -46,8 +46,9 @@ int main(int argc, char **argv)
 
   blackboard->set("object", "cup");
   std::string pkgpath = ros::package::getPath("fsm_visual_behavior");//buscas el behavior tree creado con xml
-  std::string xml_path_pkg;
-  n.getParam("xml_path_pkg", xml_path_pkg);
+  //std::string xml_path_pkg;
+  //n.getParam("xml_path_pkg", xml_path_pkg);
+  std::string xml_path_pkg = "/behavior_trees_xml/follow_person.xml";
   std::string xml_path = pkgpath + xml_path_pkg;
 
   BT::Tree tree = factory.createTreeFromFile(xml_path, blackboard);//creas el arbol

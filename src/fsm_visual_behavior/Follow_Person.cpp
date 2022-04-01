@@ -29,7 +29,7 @@ namespace fsm_visual_behavior
 {
 
 Follow_Person::Follow_Person(const std::string& name)
-: BT::ActionNodeBase(name, {}), velocity_pid(0.0, 5.0, 0.0, 0.5), turn_pid(0.0, 3.2, 0.0, 0.15)
+: BT::ActionNodeBase(name, {}), velocity_pid(0.0, 5.0, 0.0, 0.2), turn_pid(0.0, 3.2, 0.0, 0.5)
 {
   pub_vel_ = n_.advertise<geometry_msgs::Twist>("/mobile_base/commands/velocity",1);
   sub_ = n_.subscribe("bbx_custom_topic", 1, &fsm_visual_behavior::Follow_Person::messageCallback, this);
@@ -52,12 +52,16 @@ BT::NodeStatus
 Follow_Person::tick()
 {
   geometry_msgs::Twist vel_msgs;
-  double speed_filered = std::clamp(dist -1, -5.0, 5.0);
+  double speed_clamped = std::clamp(dist -1, -5.0, 5.0);
+  double angle_clamped = (px-320)/(-100);
 
-  double angle_filered = (px-320)*(-100.0);
+  float speed_pid = velocity_pid.get_output(speed_clamped)*1.0f;
+  float angle_pid = turn_pid.get_output(angle_clamped)*1.0f;
 
-  vel_msgs.linear.x = velocity_pid.get_output(speed_filered);
-  vel_msgs.angular.z = turn_pid.get_output(angle_filered);
+  vel_msgs.angular.z = angle_pid;
+  vel_msgs.linear.x = speed_pid;
+  ROS_INFO("angle_pid = %f angle clamped = %lf",angle_pid, angle_clamped);
+  ROS_INFO("speed_pid = %f speed clamped = %lf",speed_pid,speed_clamped);
       
   pub_vel_.publish(vel_msgs);
   

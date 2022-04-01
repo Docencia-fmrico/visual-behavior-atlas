@@ -42,6 +42,7 @@ class Person_Detected : public BT::ConditionNode
 {
   public:
     ros::NodeHandle n_;
+    ros::Time last_lecture;
     explicit Person_Detected(const std::string& name);
     void messageCallback(const fsm_visual_behavior::bbx_info::ConstPtr& msg);
     BT::NodeStatus tick();

@@ -7,17 +7,21 @@
 #include <sensor_msgs/Image.h>
 #include <darknet_ros_msgs/BoundingBoxes.h>
 #include "fsm_visual_behavior/bbx_info.h"
+#include "std_msgs/Header.h"
 
 class bbx_info{
 public:
   ros::NodeHandle nh;
   int px,py;
   float dist;
-  ros::Publisher pub = nh.advertise<fsm_visual_behavior::bbx_info>("bbx_custom_topic",1000);
+  std_msgs::Header header;
+  ros::Publisher pub = nh.advertise<fsm_visual_behavior::bbx_info>("bbx_custom_topic",1);
 
   void publicar()
   {
     fsm_visual_behavior::bbx_info bbx_info;
+
+    bbx_info.header.stamp = ros::Time::now();
     bbx_info.dist = dist;
     bbx_info.px = px;
     bbx_info.py = py;
@@ -39,11 +43,12 @@ void callback_bbx(const sensor_msgs::ImageConstPtr& image, const darknet_ros_msg
       return;
     }
     for (const auto & box : boxes->bounding_boxes) {
-      if(str_person.compare(box.Class) == 0){
+      if(str_person.compare(box.Class) == 0 && box.probability > 0.8){
         mensajero.px = (box.xmax + box.xmin) / 2;
         mensajero.py = (box.ymax + box.ymin) / 2;
 
-        mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py)*0.001f);//* 0.001f
+        mensajero.dist = img_ptr_depth->image.at<float>(cv::Point(mensajero.px, mensajero.py))* 0.001f;//* 0.001f
+
         std::cerr << box.Class << " at (" << mensajero.dist <<"px: "<< mensajero.px << "py: "<< mensajero.py << std::endl;
         mensajero.publicar();
       }
@@ -57,7 +62,7 @@ int main(int argc, char** argv)
   bbx_info mensajero;
   ros::Rate loop_rate(20);
 
-  message_filters::Subscriber<sensor_msgs::Image> image_depth_sub(mensajero.nh, "/camera/depth_registered/image_raw", 1);
+  message_filters::Subscriber<sensor_msgs::Image> image_depth_sub(mensajero.nh, "/camera/depth/image_raw", 1);
   message_filters::Subscriber<darknet_ros_msgs::BoundingBoxes> bbx_sub(mensajero.nh, "/darknet_ros/bounding_boxes", 1);
 
   typedef message_filters::sync_policies::ApproximateTime<sensor_msgs::Image, darknet_ros_msgs::BoundingBoxes> MySyncPolicy_bbx;
