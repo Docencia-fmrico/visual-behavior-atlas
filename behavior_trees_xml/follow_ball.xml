@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <BehaviorTree ID="BehaviorTree">
+        <ReactiveSequence>
+            <ReactiveFallback>
+                <Ball_Detected name="ball_detected"/>
+                <Turn name="turn"/>
+            </ReactiveFallback>
+            <Follow_Ball name="follow_ball"/>
+        </ReactiveSequence>
+    </BehaviorTree>
+</root>
+
