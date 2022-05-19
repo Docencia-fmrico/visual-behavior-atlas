@@ -42,6 +42,7 @@ Turn::halt()
 BT::NodeStatus
 Turn::tick()
 {
+  ros::Rate loop_rate(20);
   ROS_INFO("turning");
   std::string error;
   geometry_msgs::Twist cmd;
@@ -52,3 +53,9 @@ Turn::tick()
 }
 
 }  // namespace fsm_visual_behavior
+
+#include "behaviortree_cpp_v3/bt_factory.h"
+BT_REGISTER_NODES(factory)
+{
+  factory.registerNodeType<fsm_visual_behavior::Turn>("Turn");
+}

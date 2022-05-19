@@ -36,12 +36,12 @@ class ImageConverter
   image_transport::ImageTransport it_;
   image_transport::Subscriber image_sub_;
   image_transport::Publisher image_pub_;
-  int hupper_ = 259;
-  int hlower_ = 160;
-  int supper_ = 179;
-  int slower_ = 82;
-  int vupper_ = 255;
-  int vlower_ = 20;
+  int hupper_ = 360;//259
+  int hlower_ = 303;//160
+  int supper_ = 255;//179
+  int slower_ = 80;//82
+  int vupper_ = 255;//255
+  int vlower_ = 48;//20
   int channel_ = 0;
 
   static const int MAX_CHANNELS = 3;

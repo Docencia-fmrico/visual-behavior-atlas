@@ -45,3 +45,9 @@ Ball_Detected::tick()
 }
 
 }  // namespace fsm_visual_behavior
+
+#include "behaviortree_cpp_v3/bt_factory.h"
+BT_REGISTER_NODES(factory)
+{
+  factory.registerNodeType<fsm_visual_behavior::Ball_Detected>("Ball_Detected");
+}

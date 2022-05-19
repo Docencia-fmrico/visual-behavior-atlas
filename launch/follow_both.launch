@@ -1,0 +1,10 @@
+<launch>
+	<param name="xml_path_pkg" value="/behavior_trees_xml/follow_both.xml"/>
+
+	<node pkg="fsm_visual_behavior" type="nodo_camera_filtered" name="filter_camera" output="screen"></node>
+	<node pkg="cameras_cpp" type="nodo_rgbd_filter" name="publish_filter" output="screen"></node>
+	<node pkg="cameras_cpp" type="nodo_rgbd_tf" name="public_tf_filter" output="screen"></node>
+	<include file="$(find darknet_ros)/launch/darknet_ros.launch"></include>
+	<node pkg="fsm_visual_behavior" type="nodo_bbx_msg_publisher" name="nodo_bbx_msg_publisher"></node>
+	<node pkg="fsm_visual_behavior" type="nodo_ball_behavior_tree" name="nodo_ball_behavior_tree" output="screen"></node>
+</launch>

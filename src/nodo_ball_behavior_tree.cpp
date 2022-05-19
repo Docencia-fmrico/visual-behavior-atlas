@@ -12,16 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-
-#include "fsm_visual_behavior/Ball_Detected.h"
-#include "fsm_visual_behavior/Turn.h"
-#include "fsm_visual_behavior/Follow_Ball.h"
-#include "fsm_visual_behavior/Person_Detected.h"
-#include "fsm_visual_behavior/Follow_Person.h"
+#include <string>
+#include <memory>
 
 #include "ros/ros.h"
 #include "behaviortree_cpp_v3/behavior_tree.h"
 #include "behaviortree_cpp_v3/bt_factory.h"
+#include "behaviortree_cpp_v3/utils/shared_library.h"
 #include "behaviortree_cpp_v3/loggers/bt_zmq_publisher.h"
 
 #include "ros/package.h"
@@ -32,23 +29,23 @@ int main(int argc, char **argv)
   ros::NodeHandle n;
 
   BT::BehaviorTreeFactory factory;//creo el arboll
+  BT::SharedLibrary loader;
 
   //registro los nodos los cuales añado y compilo como librerias en el cmakelists. Ademas en la clase de cada nodo al final, pones el metodo para que se 
   //identifique el nombre del nodo a su clase
   
-  factory.registerNodeType<fsm_visual_behavior::Ball_Detected>("Ball_Detected");
-  factory.registerNodeType<fsm_visual_behavior::Turn>("Turn");
-  factory.registerNodeType<fsm_visual_behavior::Follow_Ball>("Follow_Ball");
-  factory.registerNodeType<fsm_visual_behavior::Follow_Person>("Follow_Person");
-  factory.registerNodeType<fsm_visual_behavior::Person_Detected>("Person_Detected");
+  factory.registerFromPlugin(loader.getOSName("asr_ball_detected_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_turn_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_follow_ball_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_person_detected_node"));
+  factory.registerFromPlugin(loader.getOSName("asr_follow_person_node"));
 
   auto blackboard = BT::Blackboard::create();//creo la blackboard
 
   blackboard->set("object", "cup");
   std::string pkgpath = ros::package::getPath("fsm_visual_behavior");//buscas el behavior tree creado con xml
-  //std::string xml_path_pkg;
-  //n.getParam("xml_path_pkg", xml_path_pkg);
-  std::string xml_path_pkg = "/behavior_trees_xml/follow_person.xml";
+  std::string xml_path_pkg;
+  n.getParam("xml_path_pkg", xml_path_pkg);
   std::string xml_path = pkgpath + xml_path_pkg;
 
   BT::Tree tree = factory.createTreeFromFile(xml_path, blackboard);//creas el arbol
