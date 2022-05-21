@@ -24,9 +24,7 @@ La práctica se compone de tres partes:
  
  **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
 
- ![BT Follow Ball](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.jpeg)
-
- -[BT Follow Ball Video](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.mp4)
+ ![BT Follow Ball](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/FollowBall.png)
 
 ## Follow Person
 
@@ -38,8 +36,7 @@ La práctica se compone de tres partes:
  **2.** Obtenemos la distancia de la persona con el mensaje del bounding box .
 
 
- ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Person.PNG)
+ ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/FollowPerson.png)
  
- -[BT Follow Person Video](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/Follow_Ball.mp4)
  
  
