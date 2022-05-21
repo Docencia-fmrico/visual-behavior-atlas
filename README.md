@@ -20,7 +20,7 @@ La práctica se compone de tres partes:
  El nodo para la pelota consiste en dos acciones principales, detectar la pelota e ir hacia ella.
  Para realizarlo hemos seguido los siguentes pasos:
  
- **1.** Filtrado la pelota con hsv.
+ **1.** Filtrado la pelota con HSV.
  
  **2.** Calculado la distancia a la que está la pelota mediante unas transaformadas.
 
@@ -39,4 +39,9 @@ La práctica se compone de tres partes:
  ![BT Follow Person](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/FollowPerson.png)
  
  
+ ## Follow Both
  
+ El nodo para la pelota y la persona consiste en una secuencia reactiva donde lo primero que se hace es detectar a ambas (pelota y persona) y tras ello se sigue a la pelota.
+ Una vez que se deja de seguir a la pelota se empieza a seguir a la persona.
+ 
+ ![BT Follow Both](https://github.com/Docencia-fmrico/visual-behavior-atlas/blob/main/FollowBoth.png)
